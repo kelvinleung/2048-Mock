@@ -53,6 +53,26 @@ export class Grid {
     return !!this.availableCells().length
   }
 
+  // 提取某个位置中的块的内容
+  cellContent(cell) {
+    if (this.withinBounds(cell)) {
+      return this.cells[cell.x][cell.y]
+    } else {
+      return null
+    }
+  }
+
+  // 检查某个位置是否为空
+  cellAvailable(cell) {
+    return !this.cellContent(cell)
+  }
+
+  // 检查某个位置是否在网格内（越界）
+  withinBounds(position) {
+    return position.x >= 0 && position.x < this.size &&
+           position.y >= 0 && position.y < this.size
+  }
+
   // 在给定的块的位置上填入一个块
   insertTile(tile) {
     this.cells[tile.x][tile.y] = tile

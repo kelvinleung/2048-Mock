@@ -32,14 +32,28 @@ export class HTMLActuator {
   addTile(tile) {
     const wrapper = document.createElement('div')
     const inner = document.createElement('div')
-    const position = { x: tile.x, y: tile.y }
+    // 先放置在前置的位置
+    const position = tile.previousPosition || { x: tile.x, y: tile.y }
     const positionClass = this.positionClass(position)
 
+    // 先放置在前置的位置，产生移动的动画
     let classes = ['tile', positionClass]
     this.applyClasses(wrapper, classes)
 
     inner.classList.add('tile-inner')
     inner.textContent = tile.value
+
+    // 判断某个块是否有前置的位置（是否要有移动动画）
+    if (tile.previousPosition) {
+      window.requestAnimationFrame(() => {
+        classes[1] = this.positionClass({ x: tile.x, y: tile.y })
+        this.applyClasses(wrapper, classes)
+      })
+    } else {
+      // 没有前置位置的话，添加新增块的动画
+      classes.push('tile-new')
+      this.applyClasses(wrapper, classes)
+    }
 
     wrapper.appendChild(inner)
     this.tileContainer.appendChild(wrapper)
