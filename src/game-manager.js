@@ -14,6 +14,8 @@ export class GameManager {
 
     // 绑定 this 到 move()，为了后续调用的正确，this = new GameManager
     this.inputManager.addEventHandler('move', this.move.bind(this))
+    // 重新开始游戏
+    this.inputManager.addEventHandler('restart', this.restart.bind(this))
 
     this.setup()
   }
@@ -23,6 +25,12 @@ export class GameManager {
     this.grid = new Grid(this.size)
     this.addStartTiles()
     this.actuate()
+  }
+
+  // 重新开始游戏
+  restart() {
+    // 重新初始化
+    this.setup()
   }
 
   // 初始化最开始的块

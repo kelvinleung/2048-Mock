@@ -27,6 +27,13 @@ export class InputManager {
         this.emit('move', keyPressed)
       }
     })
+
+    // 添加重新开始按钮点击事件的处理
+    let restartButton = document.getElementById('btn-restart')
+    restartButton.addEventListener('click', (event) => {
+      event.preventDefault()
+      this.emit('restart')
+    })
   }
 
   // 添加事件的 handler
