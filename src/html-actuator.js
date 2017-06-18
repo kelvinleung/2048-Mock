@@ -49,6 +49,14 @@ export class HTMLActuator {
         classes[1] = this.positionClass({ x: tile.x, y: tile.y })
         this.applyClasses(wrapper, classes)
       })
+    } else if (tile.mergedFrom) {
+      // 合并产生的块，添加合并的动画
+      classes.push('tile-merged')
+      this.applyClasses(wrapper, classes)
+      // 合并的两个块，要有过渡动画，分别为移动以及保持原位，最终会在合并的位置产生三个重叠的块
+      tile.mergedFrom.forEach((merged) => {
+        this.addTile(merged)
+      })
     } else {
       // 没有前置位置的话，添加新增块的动画
       classes.push('tile-new')

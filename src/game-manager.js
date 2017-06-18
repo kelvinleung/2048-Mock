@@ -69,8 +69,21 @@ export class GameManager {
         if (tile) {
           // 寻找到块要移动到的最远位置
           let position = this.findFarthestPosition(cell, vector)
-          // 将块移动到最远的位置，即更新块的位置坐标
-          this.moveTile(tile, position)
+          let next = this.grid.cellContent(position.next)
+          // 只能合并一次，合并条件为两者的值相等
+          if (next && next.value === tile.value && !next.mergedFrom) {
+            let mergedTile = new Tile(position.next, tile.value * 2)
+            mergedTile.mergedFrom = [tile, next]
+            // 只保留合并后的块
+            this.grid.insertTile(mergedTile)
+            this.grid.removeTile(tile)
+
+            tile.updatePosition(position.next)
+          } else {
+            // 将块移动到最远的位置，即更新块的位置坐标
+            this.moveTile(tile, position.farthest)
+          }
+
           // 判断块的前后坐标是否一致，即是否有移动
           if (!this.positionsEqual(tile, cell)) {
             moved = true
@@ -98,6 +111,8 @@ export class GameManager {
   prepareTiles() {
     this.grid.eachCell((x, y, tile) => {
       if (tile) {
+        // 移动前清除所有已经合并的块
+        tile.mergedFrom = null
         tile.savePosition()
       }
     })
@@ -144,7 +159,7 @@ export class GameManager {
         y: previous.y + vector.y
       }
     } while (this.grid.withinBounds(cell) && this.grid.cellAvailable(cell))
-    return previous
+    return { farthest: previous, next: cell }
   }
 
   // 判断块的前后位置是否一致，即是否有移动

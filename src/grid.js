@@ -77,4 +77,8 @@ export class Grid {
   insertTile(tile) {
     this.cells[tile.x][tile.y] = tile
   }
+  // 去掉指定的块，置空块的位置
+  removeTile(tile) {
+    this.cells[tile.x][tile.y] = null
+  }
 }
