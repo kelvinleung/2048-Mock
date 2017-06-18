@@ -23,7 +23,8 @@ module.exports = {
   ],
   devServer: {
     hot: true,
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname),
+    publicPath: '/dist/',
     port: 9000
   },
   devtool: 'eval-source-map'

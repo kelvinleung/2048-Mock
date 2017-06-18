@@ -16,6 +16,83 @@ body {
   margin: 0 auto;
 }
 
+.game-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.scores-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.score-container, .best-container {
+  padding: 10px 24px;
+  border-radius: 3px;
+  background: #bbada0;
+}
+
+.score-container {
+  margin-right: 10px;
+}
+
+p.score-title {
+  margin: 0;
+  margin-bottom: 5px;
+  text-align: center;
+  color: #eee4da;
+  font-size: 15px;
+}
+
+p.score {
+  margin: 0;
+  color: #fff;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+h1.title {
+  margin: 0;
+  font-size: 80px;
+  font-weight: bold;
+}
+
+.game-controll {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+p.game-intro {
+  margin: 0;
+}
+
+#btn-restart {
+  height: 48px;
+  line-height: 48px;
+  border-radius: 3px;
+  padding: 0 20px;
+  background: #8f7a66;
+  color: #f9f6f2;
+  cursor: pointer;
+}
+
 .game-container {
   position: relative;
   padding: 15px;
@@ -23,6 +100,7 @@ body {
   border-radius: 6px;
   width: 500px;
   height: 500px;
+  margin-top: 40px;
   box-sizing: border-box;
 }
 
@@ -71,8 +149,10 @@ body {
 
 .tile {
   position: absolute;
+  -webkit-transition: 100ms ease-in-out;
   transition: 100ms ease-in-out;
   transition-property: -webkit-transform;
+  -webkit-transition-property: -webkit-transform;
   transition-property: transform;
   transition-property: transform, -webkit-transform;
 }

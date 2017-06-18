@@ -8,6 +8,25 @@
 </head>
 <body>
   <div class="container">
+    <div class="game-info">
+      <h1 class="title">2048</h1>
+      <div class="scores-container">
+        <div class="score-container">
+          <p class="score-title">得分</p>
+          <p class="score">0</p>
+        </div>
+        <div class="best-container">
+          <p class="score-title">最高</p>
+          <p class="score">0</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-controll">
+      <p class="game-intro">合并相同的格子，冲击2048！</p>
+      <a id="btn-restart">开始新游戏</a>
+    </div>
+
     <div class="game-container">
       <div class="grid-container">
         <div class="grid-row">
@@ -42,6 +61,6 @@
   </div>
   
   
-  <script src="bundle.js"></script>
+  <script src="dist/bundle.js"></script>
 </body>
 </html>
