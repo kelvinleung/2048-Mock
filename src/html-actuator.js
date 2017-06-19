@@ -5,10 +5,12 @@
 export class HTMLActuator {
   constructor() {
     this.tileContainer = document.querySelector('.tile-container')
+    this.scoreContainer = document.getElementById('score')
+    this.bestContainer = document.getElementById('best')
   }
 
   // 初始化网格到 DOM
-  actuate(grid) {
+  actuate(grid, metaData) {
     window.requestAnimationFrame(() => {
       this.clearContainer(this.tileContainer)
       grid.cells.forEach((column) => {
@@ -18,6 +20,10 @@ export class HTMLActuator {
           }
         })
       })
+      // 更新得分的数据到 DOM
+      this.updateScore(metaData.score)
+      // 更新最高得分的数据到 DOM
+      this.updateBest(metaData.best)
     })
   }
 
@@ -75,5 +81,14 @@ export class HTMLActuator {
   // 添加块的 CSS 中的位置
   positionClass(position) {
     return 'tile-position-' + position.x + '-' + position.y
+  }
+
+  // 更新得分
+  updateScore(score) {
+    this.scoreContainer.textContent = score
+  }
+  // 更新最高记录
+  updateBest(score) {
+    this.bestContainer.textContent = score
   }
 }

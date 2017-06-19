@@ -53,7 +53,7 @@ p.score-title {
   font-size: 15px;
 }
 
-p.score {
+#score, #best {
   margin: 0;
   color: #fff;
   font-size: 28px;

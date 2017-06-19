@@ -11,6 +11,8 @@ export class GameManager {
     this.inputManager = new InputManager
     this.actuator = new Actuator
     this.startTiles = 2
+    // 记录当前最高分数
+    this.best = 0
 
     // 绑定 this 到 move()，为了后续调用的正确，this = new GameManager
     this.inputManager.addEventHandler('move', this.move.bind(this))
@@ -23,6 +25,8 @@ export class GameManager {
   // 初始化：新建网格，添加初始块，DOM 初始化
   setup() {
     this.grid = new Grid(this.size)
+    // 记录当前的得分
+    this.score = 0
     this.addStartTiles()
     this.actuate()
   }
@@ -51,7 +55,13 @@ export class GameManager {
 
   // DOM 初始化
   actuate() {
-    this.actuator.actuate(this.grid)
+    this.actuator.actuate(
+      this.grid,
+      {
+        score: this.score,
+        best: this.best
+      }
+    )
   }
 
   /* ---------- 游戏操作部分 ---------- */
@@ -87,6 +97,12 @@ export class GameManager {
             this.grid.removeTile(tile)
 
             tile.updatePosition(position.next)
+            // 更新当前的得分
+            this.score += mergedTile.value
+            // 更新当前最高得分记录
+            if (this.score > this.best) {
+              this.best = this.score
+            }
           } else {
             // 将块移动到最远的位置，即更新块的位置坐标
             this.moveTile(tile, position.farthest)
