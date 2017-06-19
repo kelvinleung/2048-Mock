@@ -43,7 +43,11 @@ export class HTMLActuator {
     const positionClass = this.positionClass(position)
 
     // 先放置在前置的位置，产生移动的动画
-    let classes = ['tile', positionClass]
+    let classes = ['tile', positionClass, 'tile-' + tile.value]
+    // 超大数字特殊颜色显示
+    if (tile.value > 2048) {
+      classes.push('tile-super')
+    }
     this.applyClasses(wrapper, classes)
 
     inner.classList.add('tile-inner')
