@@ -29,10 +29,45 @@ export class InputManager {
     })
 
     // 添加重新开始按钮点击事件的处理
-    let restartButton = document.getElementById('btn-restart')
+    const restartButton = document.getElementById('btn-restart')
     restartButton.addEventListener('click', (event) => {
       event.preventDefault()
       this.emit('restart')
+    })
+
+    // 记录触摸起始位置
+    let touchStartX, touchStartY
+    const gameContainer = document.getElementById('game-container')
+    // 获取触摸开始位置
+    gameContainer.addEventListener('touchstart', (event) => {
+      if (event.targetTouches.length > 1) {
+        return
+      }
+      touchStartX = event.touches[0].clientX
+      touchStartY = event.touches[0].clientY
+      event.preventDefault()
+    })
+
+    gameContainer.addEventListener('touchmove', (event) => {
+      event.preventDefault()
+    })
+    // 获取触摸结束位置，计算滑动方向
+    gameContainer.addEventListener('touchend', (event) => {
+      if (event.targetTouches.length > 0) {
+        return
+      }
+
+      let touchEndX = event.changedTouches[0].clientX
+      let touchEndY = event.changedTouches[0].clientY
+      // 计算滑动方向（X 轴 or Y 轴）
+      let dX = touchEndX - touchStartX
+      let absDX = Math.abs(dX)
+      let dY = touchEndY - touchStartY
+      let absDY = Math.abs(dY)
+      // 判断滑动方向
+      if (Math.max(absDX, absDY) > 10) {
+        this.emit('move', absDX > absDY ? (dX > 0 ? 'right' : 'left') : (dY > 0 ? 'down' : 'up'))
+      }
     })
   }
 

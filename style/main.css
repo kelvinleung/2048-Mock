@@ -79,7 +79,7 @@ p.game-intro {
   cursor: pointer;
 }
 
-.game-container {
+#game-container {
   position: relative;
   padding: 15px;
   background: #bbada0;
@@ -364,7 +364,7 @@ p.game-intro {
     padding: 5px 12px;
   }
 
-  .game-container {
+  #game-container {
     padding: 10px;
     width: 310px;
     height: 310px;
